@@ -59,8 +59,13 @@ int Postfix_Evaluator::eval_op(char op) {
   return result;
 }
 ```
-The body of eval() in "Postfix_Evaluator.cpp" will become the body of postfixEvaluate() in 
+The body of eval() in "Postfix_Evaluator.cpp" will become the body of postfixEvaluate() in ExpressionManager.cpp.  Notice that this code uses an istringstream so you will need to include sstream.
 ```c++
+#include <sstream>
+#include <cctype>
+string ExpressionManager::postfixEvaluate(string postfixExpression)
+{
+  cout << "In postfixEvaluate"<<endl;
 // Be sure the stack is empty
   while (!operand_stack.empty())
     operand_stack.pop();
@@ -92,4 +97,5 @@ The body of eval() in "Postfix_Evaluator.cpp" will become the body of postfixEva
   } else {
     throw Syntax_Error("Stack is empty");
   }
+}
 ```
