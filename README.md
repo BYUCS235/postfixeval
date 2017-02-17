@@ -1,7 +1,20 @@
 # postfixeval
 In this learning activity, we will look at the code from chapter 5 of the book and see how we can use it to solve the postfixEvaluate() function in the lab.  If you didnt finish the [expressions learning activity](https://github.com/BYUCS235/expressions), download the code or create a new workspace from this git repo.
 
-Now download the code samples from [chapter 5 of the book](http://bcs.wiley.com/he-bcs/Books?action=chapter&bcsId=2949&itemId=0471467553&chapterId=21529) and look at the file "Postfix_Evaluator.cpp".  There are two functions in this file, eval() and eval_op().  These functions will combine to implement the postfixEvaluate function in the lab.  
+The algorithm we are given in the book is:
+1. Empty the operand stack.
+2. while there are more tokens
+3. Get the next token.
+4. if the first character of the token is a digit 
+5. Push the integer onto the stack. 
+6. else if the token is an operator 
+7. Pop the right operand off the stack.
+8. Pop the left operand off the stack.
+9. Evaluate the operation.
+10. Push the result onto the stack.
+11. Pop the stack and return the result.
+
+Now download the code samples from [chapter 5 of the book](http://bcs.wiley.com/he-bcs/Books?action=chapter&bcsId=2949&itemId=0471467553&chapterId=21529) and look at the file "Postfix_Evaluator.cpp".  There are two functions in this file, eval() and eval_op().  These functions will combine to implement the postfixEvaluate function in the lab.  The function eval() implements this algorithm.
 
 First add eval_op() and is_operator() as a private function in ExpressionManager.h along with the string OPERATORS and the operand_stack.  Notice that the example code uses the std:: notation since they dont have the line "using namespace std".  It will work fine even if you have already done this.
 
@@ -99,3 +112,23 @@ string ExpressionManager::postfixEvaluate(string postfixExpression)
   }
 }
 ```
+Notice that eval_op() throws and exception when there are not enough entries on the stack.  In order to make this code work, you need to catch the exception.  Lets change the exception throwing code in eval_op() to:
+```c++
+  if (operand_stack.empty()) 
+    throw 1;
+  int rhs = operand_stack.top();
+  operand_stack.pop();
+  if (operand_stack.empty())
+    throw 2;
+```
+And now we need to catch the exception in postfixEvaluate() to
+```c++
+      try {
+        result = eval_op(next_char);
+      }
+      catch(int which) {
+          cout << "not enough operands";
+          return("invalid");
+      }
+```
+You will need to change all the places where you throw an exception in postfixEvaluate to just return("invalid").  And the answer returned should be a string instead of an int, so you will need to use to_string() to convert the integer to a string before you return it.  This is a good example of refactoring code to accomplish a new task.
