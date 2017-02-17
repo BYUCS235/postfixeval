@@ -50,7 +50,7 @@ const std::string ExpressionManager::OPERATORS = "+-*/";
     @param op A character representing the operator
     @throws Syntax_Error if top is attempted on an empty stack
 */
-int Postfix_Evaluator::eval_op(char op) {
+int ExpressionManager::eval_op(char op) {
   if (operand_stack.empty()) 
     throw Syntax_Error("Stack is empty");
   int rhs = operand_stack.top();
