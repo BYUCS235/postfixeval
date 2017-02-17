@@ -59,3 +59,37 @@ int Postfix_Evaluator::eval_op(char op) {
   return result;
 }
 ```
+The body of eval() in "Postfix_Evaluator.cpp" will become the body of postfixEvaluate() in 
+```c++
+// Be sure the stack is empty
+  while (!operand_stack.empty())
+    operand_stack.pop();
+
+  // Process each token
+  istringstream tokens(expression);
+  char next_char;
+  while (tokens >> next_char) {
+    if (isdigit(next_char)) {
+      tokens.putback(next_char);
+      int value;
+      tokens >> value;
+      operand_stack.push(value);
+    } else if (is_operator(next_char)) {
+      int result = eval_op(next_char);
+      operand_stack.push(result);
+    } else {
+      throw Syntax_Error("Invalid character encountered");
+    }
+  }
+  if (!operand_stack.empty()) {
+    int answer = operand_stack.top();
+    operand_stack.pop();
+    if (operand_stack.empty()) {
+      return answer;
+    } else {
+      throw Syntax_Error("Stack should be empty");
+    }
+  } else {
+    throw Syntax_Error("Stack is empty");
+  }
+```
