@@ -132,4 +132,27 @@ And now we need to catch the exception in postfixEvaluate() to
           return("invalid");
       }
 ```
-You will need to change all the places where you throw an exception in postfixEvaluate to just return("invalid").  And the answer returned should be a string instead of an int, so you will need to use to_string() to convert the integer to a string before you return it.  This is a good example of refactoring code to accomplish a new task.
+You will need to change all the places where you throw an exception in postfixEvaluate to just return("invalid").  And the answer returned should be a string instead of an int, so you will need to use to_string() to convert the integer to a string before you return it.  
+
+The last change you will need to make is to add the modulo operator to the list of operators "%".  You should add % to the operators string in "ExpressionManager.cpp".
+```c++
+const std::string ExpressionManager::OPERATORS = "+-*/%";
+```
+
+And add % to the switch statement in "ExpressionManager.cpp".
+```c++
+switch(op) {
+  case '+' : result = lhs + rhs;
+             break;
+  case '-' : result = lhs - rhs;
+             break;
+  case '*' : result = lhs * rhs;
+             break;
+  case '/' : result = lhs / rhs;
+             break;
+  case '%' : result = lhs % rhs;
+             break;
+  }
+```
+
+This is a good example of refactoring code to accomplish a new task.
