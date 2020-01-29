@@ -15,7 +15,7 @@ The algorithm for evaluating postfix expressions is:
 10. Push the result onto the stack.
 11. Pop the stack and return the result.
 
-Now download the code samples from this repository and look at the file "Postfix_Evaluator.cpp".  There are two functions in this file, eval() and eval_op().  These functions will combine to implement the postfixEvaluate function in the lab.  The function eval() implements this algorithm.
+Now download the [code samples](http://higheredbcs.wiley.com/legacy/college/koffman/0471467553/student_source/ch05.zip.gz) from the book for chapter 5 and look at the file "Postfix_Evaluator.cpp".  There are two functions in this file, eval() and eval_op().  These functions will combine to implement the postfixEvaluate function in the lab.  The function eval() implements this algorithm.
 
 First add eval_op() and is_operator() as a private function in ExpressionManager.h along with the string OPERATORS and the operand_stack.  Notice that the example code uses the std:: notation since they dont have the line "using namespace std".  It will work fine even if you have already done this.
 
